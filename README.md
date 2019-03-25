@@ -1,9 +1,6 @@
-# bookstore
-Book Store using C# and dotnet to practice new technologies.
-
 # Book Store in C# 
 
-This project is a small project using new technologies that I am studying.
+This is a small project using new technologies that I am studying as C#, dotnet and LINQ.
 
 ## Technology
 

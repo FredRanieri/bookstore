@@ -16,10 +16,6 @@ This project is a small project using new technologies that I am studying.
 * Command to create Database `dotnet ef database update`
 * Command to run application `dotnet run`
 
-## Implementation overview
-
-This project was made using EF Core and dotnet to create database and work with requisitions.
-
 ## Todo
 
 * Insert Author and Book function

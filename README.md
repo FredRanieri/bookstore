@@ -18,3 +18,4 @@ This is a small project using new technologies that I am studying as C#, dotnet 
 
 * Insert Author and Book function
 * Filter queries using LINQ for better performace
+* Fix delay when starting server

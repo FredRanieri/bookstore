@@ -14,6 +14,8 @@ function booksList(){
 
 function authorsList(){
     $.get(url + "allAuthors", function(data){
+        //This code should to be in server side
+        //using LINQ
         var books = "";
         for(var i = 0; i < data.length; i++){
             var tab = "";

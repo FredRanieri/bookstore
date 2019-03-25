@@ -9,6 +9,7 @@ This project is a small project using new technologies that I am studying.
 
 * C#
 * dotnet
+* SQLite
 
 ## Running application
 

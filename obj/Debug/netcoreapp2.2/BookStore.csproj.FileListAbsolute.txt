@@ -1,0 +1,14 @@
+/home/fred/Área de Trabalho/BookStore/bin/Debug/netcoreapp2.2/BookStore.deps.json
+/home/fred/Área de Trabalho/BookStore/bin/Debug/netcoreapp2.2/BookStore.runtimeconfig.json
+/home/fred/Área de Trabalho/BookStore/bin/Debug/netcoreapp2.2/BookStore.runtimeconfig.dev.json
+/home/fred/Área de Trabalho/BookStore/bin/Debug/netcoreapp2.2/BookStore.dll
+/home/fred/Área de Trabalho/BookStore/bin/Debug/netcoreapp2.2/BookStore.pdb
+/home/fred/Área de Trabalho/BookStore/obj/Debug/netcoreapp2.2/BookStore.csprojAssemblyReference.cache
+/home/fred/Área de Trabalho/BookStore/obj/Debug/netcoreapp2.2/BookStore.csproj.CoreCompileInputs.cache
+/home/fred/Área de Trabalho/BookStore/obj/Debug/netcoreapp2.2/BookStore.RazorAssemblyInfo.cache
+/home/fred/Área de Trabalho/BookStore/obj/Debug/netcoreapp2.2/BookStore.RazorAssemblyInfo.cs
+/home/fred/Área de Trabalho/BookStore/obj/Debug/netcoreapp2.2/BookStore.AssemblyInfoInputs.cache
+/home/fred/Área de Trabalho/BookStore/obj/Debug/netcoreapp2.2/BookStore.AssemblyInfo.cs
+/home/fred/Área de Trabalho/BookStore/obj/Debug/netcoreapp2.2/BookStore.RazorTargetAssemblyInfo.cache
+/home/fred/Área de Trabalho/BookStore/obj/Debug/netcoreapp2.2/BookStore.dll
+/home/fred/Área de Trabalho/BookStore/obj/Debug/netcoreapp2.2/BookStore.pdb

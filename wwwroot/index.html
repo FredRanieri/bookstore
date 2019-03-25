@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Book Store</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        .container{
+            margin-top: 15px; 
+            text-align: center;
+        }
+        #booksList_d{
+            text-align: left;
+            width: 250px;
+        }
+        .btn{
+            margin: 10px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <button type="button" class="btn btn-dark btn-lg"onclick="insertMessage()">Insert Book</button>
+        <button type="button" class="btn btn-dark btn-lg" onclick="insertMessage()">Insert Author</button>
+        <button type="button" class="btn btn-dark btn-lg" onclick="booksList()">Books List</button>
+        <button type="button" class="btn btn-dark btn-lg" onclick="authorsList()">Authors List</button>
+        <div class="container" id="booksList_d"></div>
+        <div class="container" id="message_d"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<script src="site.js"></script>
+</body>
+</html>

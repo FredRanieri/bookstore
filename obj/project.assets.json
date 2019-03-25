@@ -12537,11 +12537,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/fred/Área de Trabalho/BookStore/BookStore.csproj",
+      "projectUniqueName": "/home/fred/Área de Trabalho/bookstore/BookStore.csproj",
       "projectName": "BookStore",
-      "projectPath": "/home/fred/Área de Trabalho/BookStore/BookStore.csproj",
+      "projectPath": "/home/fred/Área de Trabalho/bookstore/BookStore.csproj",
       "packagesPath": "/home/fred/.nuget/packages/",
-      "outputPath": "/home/fred/Área de Trabalho/BookStore/obj/",
+      "outputPath": "/home/fred/Área de Trabalho/bookstore/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"

@@ -1,0 +1,17 @@
+/home/fred/Área de Trabalho/bookstore/bookstore.test/obj/Debug/netcoreapp2.2/bookstore.test.csprojAssemblyReference.cache
+/home/fred/Área de Trabalho/bookstore/bookstore.test/obj/Debug/netcoreapp2.2/bookstore.test.csproj.CoreCompileInputs.cache
+/home/fred/Área de Trabalho/bookstore/bookstore.test/obj/Debug/netcoreapp2.2/bookstore.test.AssemblyInfoInputs.cache
+/home/fred/Área de Trabalho/bookstore/bookstore.test/obj/Debug/netcoreapp2.2/bookstore.test.AssemblyInfo.cs
+/home/fred/Área de Trabalho/bookstore/bookstore.test/bin/Debug/netcoreapp2.2/xunit.runner.visualstudio.dotnetcore.testadapter.dll
+/home/fred/Área de Trabalho/bookstore/bookstore.test/bin/Debug/netcoreapp2.2/xunit.runner.reporters.netcoreapp10.dll
+/home/fred/Área de Trabalho/bookstore/bookstore.test/bin/Debug/netcoreapp2.2/xunit.runner.utility.netcoreapp10.dll
+/home/fred/Área de Trabalho/bookstore/bookstore.test/bin/Debug/netcoreapp2.2/bookstore.test.deps.json
+/home/fred/Área de Trabalho/bookstore/bookstore.test/bin/Debug/netcoreapp2.2/bookstore.test.runtimeconfig.json
+/home/fred/Área de Trabalho/bookstore/bookstore.test/bin/Debug/netcoreapp2.2/bookstore.test.runtimeconfig.dev.json
+/home/fred/Área de Trabalho/bookstore/bookstore.test/bin/Debug/netcoreapp2.2/bookstore.test.dll
+/home/fred/Área de Trabalho/bookstore/bookstore.test/bin/Debug/netcoreapp2.2/bookstore.test.pdb
+/home/fred/Área de Trabalho/bookstore/bookstore.test/bin/Debug/netcoreapp2.2/BookStore.dll
+/home/fred/Área de Trabalho/bookstore/bookstore.test/bin/Debug/netcoreapp2.2/BookStore.pdb
+/home/fred/Área de Trabalho/bookstore/bookstore.test/obj/Debug/netcoreapp2.2/bookstore.test.csproj.CopyComplete
+/home/fred/Área de Trabalho/bookstore/bookstore.test/obj/Debug/netcoreapp2.2/bookstore.test.dll
+/home/fred/Área de Trabalho/bookstore/bookstore.test/obj/Debug/netcoreapp2.2/bookstore.test.pdb

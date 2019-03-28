@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-
 using BookStoreApi.Models;
+using BookStoreApi.Services;
 
 namespace BookStore.Controllers
 {
@@ -14,36 +14,36 @@ namespace BookStore.Controllers
     [ApiController]
     public class BookStoreController : ControllerBase
     {
-        private readonly BookStoreContext _context;
+        private readonly IBookStoreService _service;
 
-        public BookStoreController(BookStoreContext context){
-            _context = context;
-        
-            if(_context.Authors.Count() == 0){
-                Author newAt = new Author{ Name = "Walter Isaacson"};
-
-                _context.Authors.Add(new Author{ Name = "Eric Topol"});
-                _context.Authors.Add(new Author{ Name = "Max Tegmark"});
-                _context.Authors.Add(newAt);
-                _context.Books.Add(new Book{ Name = "Steve Jobs", Author = newAt });
-                _context.SaveChanges();
-            }
+        public BookStoreController(IBookStoreService context){
+            _service = context;
         }
 
-        public BookStoreContext GetContext(){
-            return _context;
-        }
 
         [HttpGet("allBooks")]
         public async Task<ActionResult<IEnumerable<Book>>> GetAllBooks(){
-            return await _context.Books.Include(b => b.Author).OrderBy(b => b.Name).ToListAsync();
+            return await _service.GetAllBooksService();
         }
+
 
         [HttpGet("allAuthors")]
         public async Task<ActionResult<IEnumerable<Author>>> GetAllAuthors(){
-            return await _context.Authors.Include(a => a.Books).ToListAsync();
+            return await _service.GetAllAuthorsService();
         }
+    }
+}
 
+
+
+
+
+
+
+
+
+
+/*
         [HttpGet("findAuthor/{name}")]
         public async Task<ActionResult<Author>> GetAuthor(string name){
             var author = await _context.Authors.FirstOrDefaultAsync(a => a.Name == name);
@@ -94,5 +94,4 @@ namespace BookStore.Controllers
         public void Delete(int id)
         {
         }
-    }
-}
+        */

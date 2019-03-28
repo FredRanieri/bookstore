@@ -10,9 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
 using Microsoft.EntityFrameworkCore;
 using BookStoreApi.Models;
+using BookStoreApi.Services;
 
 namespace BookStore
 {
@@ -29,8 +29,9 @@ namespace BookStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<BookStoreContext> (options => options.UseSqlite("Data Source = Database/bookdb.sqlite"));
+            services.AddDbContext<BookStoreContext> (options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().AddJsonOptions(options => { options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;});
+            services.AddTransient<IBookStoreService, BookStoreService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

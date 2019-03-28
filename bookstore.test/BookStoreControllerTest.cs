@@ -1,32 +1,57 @@
 using System;
 using Xunit;
+using GenFu;
+using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using BookStore.Controllers;
+using BookStoreApi.Models;
+using BookStoreApi.Services;
 using Moq;
 
 namespace bookstore.test
 {
     public class BookStoreControllerTest
     {
+        public IEnumerable<Book> GetTestBooks(){
+            var i = 1;
+            var books = A.ListOf<Book>(26);
+            books.ForEach(x => x.BookId = i++);
+            return books.Select(_ => _);
+        }
+
+         private Mock<BookStoreContext> CreateDbContext(){
+            var persons = GetTestBooks().AsQueryable();
+
+            var dbSet = new Mock<DbSet<Book>>();
+            dbSet.As<IQueryable<Book>>().Setup(m => m.Provider).Returns(persons.Provider);
+            dbSet.As<IQueryable<Book>>().Setup(m => m.Expression).Returns(persons.Expression);
+            dbSet.As<IQueryable<Book>>().Setup(m => m.ElementType).Returns(persons.ElementType);
+            dbSet.As<IQueryable<Book>>().Setup(m => m.GetEnumerator()).Returns(persons.GetEnumerator());
+
+            var context = new Mock<BookStoreContext>();
+            context.Setup(c => c.Books).Returns(dbSet.Object);
+            return context;
+        }
+
         [Fact]
-        public async Task PostNewBook_ReturnStatusCode_isTrue(){
-            //Arrange
-            var mock = new Mock<BookStoreController>();
-            mock.Setup(m => m.ControllerContext);
+        public void GetAllBooksTest()
+        {
+            // arrange
+            var context = CreateDbContext();
 
-            BookStoreController controller = new BookStoreController(null); // Need the Context to work with database
-            int expected = 201;
-            dynamic book = new JObject();
-            book.name = "Test Book";
-            book.authorId = 1;
+            var service = new BookStoreService(context.Object); 
 
-            //Act
-            int actual = await controller.PostBook(book);
+             // act
+            var results = service.GetAllBooksService();
 
-            //Assert
-            Assert.Equal(expected, actual);
+            var count = results.Id;
 
+            // assert
+            Assert.Equal(1, count);
         }
     }
 }

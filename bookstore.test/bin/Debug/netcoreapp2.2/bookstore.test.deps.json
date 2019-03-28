@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "9594d63fe89171abb17a76208584e2cc875b7d1e"
+    "signature": "4fb2c39eb92ebc28255a09247766023b338cc857"
   },
   "compilationOptions": {},
   "targets": {
@@ -9,6 +9,7 @@
       "bookstore.test/1.0.0": {
         "dependencies": {
           "BookStore": "1.0.0",
+          "GenFu": "1.5.6",
           "Microsoft.EntityFrameworkCore.Sqlite": "2.2.3",
           "Microsoft.NET.Test.Sdk": "15.9.0",
           "Moq": "4.10.1",
@@ -30,6 +31,17 @@
           "lib/netstandard1.5/Castle.Core.dll": {
             "assemblyVersion": "4.0.0.0",
             "fileVersion": "4.3.1.0"
+          }
+        }
+      },
+      "GenFu/1.5.6": {
+        "dependencies": {
+          "System.Reflection.TypeExtensions": "4.5.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/GenFu.dll": {
+            "assemblyVersion": "1.3.4.0",
+            "fileVersion": "1.3.4.0"
           }
         }
       },
@@ -642,6 +654,13 @@
       "sha512": "sha512-8Y/eTr6GTElAGV7eAmJuhfLhGdFpNvaNrQ9UQYDScziLmX+/BLGM+9eQr0IcdNDcPN0ADmbtwT6MgecGKy4obw==",
       "path": "castle.core/4.3.1",
       "hashPath": "castle.core.4.3.1.nupkg.sha512"
+    },
+    "GenFu/1.5.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wZmSsSLZdxXLdeA5DEzpK8FxSuvZ093lHZTjQW+8ffhJd2b9stiIqJPeHbluS3f9ge5F8tJ5T17VvXQuxzFbAQ==",
+      "path": "genfu/1.5.6",
+      "hashPath": "genfu.1.5.6.nupkg.sha512"
     },
     "Microsoft.CodeCoverage/15.9.0": {
       "type": "package",

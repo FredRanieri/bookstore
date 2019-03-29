@@ -22,27 +22,22 @@ namespace BookStore.Controllers
 
 
         [HttpGet("allBooks")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetAllBooks(){
-            return await _service.GetAllBooksService();
-        }
-
+        public IEnumerable<dynamic>  GetAllBooks() => _service.GetAllBooksService();
 
         [HttpGet("allAuthors")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetAllAuthors(){
-            return await _service.GetAllAuthorsService();
-        }
+        public IEnumerable<dynamic> GetAllAuthors() => _service.GetAllAuthorsService();
 
         [HttpGet("findAuthor/{name}")]
-        public async Task<ActionResult<IEnumerable<Author>>> GetAuthor(string name){
-
-            return await _service.GetAuthorService(name);
-        }
+        public IEnumerable<Author> GetAuthor(string name) => _service.GetAuthorService(name);
 
         [HttpGet("findBook/{name}")]
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetBook(string name){
-            return await _service.GetBookService(name);
+        public IEnumerable<dynamic> GetBook(string name) => _service.GetBookService(name);
+
+        [HttpPost("newBook")]
+        public async Task<ActionResult<Boolean>> PostBook(dynamic info){
+            await _service.PostBookService(info);
+            return Ok();
         }
-        
     }
 }
 

@@ -28,25 +28,81 @@ namespace bookstore.test
     public class BookStoreControllerTest
     {
 
-        public async Task<ActionResult<IEnumerable<dynamic>>> GetFakeData(){
-            return await Task.FromResult(A.ListOf<DataBook>(20));
+        public IEnumerable<dynamic> GetFakeBook(int size){
+            return A.ListOf<DataBook>(size);
+        }
+
+        public IEnumerable<dynamic> GetFakeAuthor(int size){
+            return A.ListOf<DataAuthor>(size);
         }
 
         [Fact]
-        public async void GetAllBooksTest(){
+        public void GetAllBooksTest_BookListValue(){
             // arrange
-            var data = GetFakeData();
+            var data = GetFakeBook(5);
+            String expected = data.First().BookName;
+            
             var service = new Mock<IBookStoreService>();
             service.Setup(x => x.GetAllBooksService()).Returns(data);
-
             var controller = new BookStoreController(service.Object);
 
              // act
-            var result = await controller.GetAllBooks();
-            Console.WriteLine(result);
+            String actual = controller.GetAllBooks().First().BookName;
 
             // assert
-            Assert.Equal("20", "result"); // Not working well yet
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void GetAllBooksTest_BookListSize(){
+            // arrange
+            int expected = 10;
+            var data = GetFakeBook(expected);
+
+            var service = new Mock<IBookStoreService>();
+            service.Setup(x => x.GetAllBooksService()).Returns(data);
+            var controller = new BookStoreController(service.Object);
+
+             // act
+            int actual = controller.GetAllBooks().Count();
+
+            // assert
+            Assert.Equal(expected, actual);
+        }
+
+        
+        [Fact]
+        public void GetAllAuthorsTest_AuthorListValue(){
+            // arrange
+            var data = GetFakeAuthor(5);
+            String expected = data.First().AuthorName;
+            
+            var service = new Mock<IBookStoreService>();
+            service.Setup(x => x.GetAllAuthorsService()).Returns(data);
+            var controller = new BookStoreController(service.Object);
+
+             // act
+            String actual = controller.GetAllAuthors().First().AuthorName;
+
+            // assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void GetAllAuthorsTest_AuthorListSize(){
+            // arrange
+            int expected = 10;
+            var data = GetFakeAuthor(expected);
+
+            var service = new Mock<IBookStoreService>();
+            service.Setup(x => x.GetAllAuthorsService()).Returns(data);
+            var controller = new BookStoreController(service.Object);
+
+             // act
+            int actual = controller.GetAllAuthors().Count();
+
+            // assert
+            Assert.Equal(expected, actual);
         }
     }
 }

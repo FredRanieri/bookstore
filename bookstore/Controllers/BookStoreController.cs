@@ -33,13 +33,13 @@ namespace BookStore.Controllers
         }
 
         [HttpGet("findAuthor/{name}")]
-        public async Task<ActionResult<Author>> GetAuthor(string name){
+        public async Task<ActionResult<IEnumerable<Author>>> GetAuthor(string name){
 
             return await _service.GetAuthorService(name);
         }
 
         [HttpGet("findBook/{name}")]
-        public async Task<ActionResult<Book>> GetBook(string name){
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetBook(string name){
             return await _service.GetBookService(name);
         }
         

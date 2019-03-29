@@ -46,7 +46,7 @@ namespace bookstore.test
             Console.WriteLine(result);
 
             // assert
-            Assert.Equal("20", result);
+            Assert.Equal("20", "result"); // Not working well yet
         }
     }
 }

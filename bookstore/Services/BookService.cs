@@ -17,12 +17,24 @@ namespace BookStoreApi.Services
             _dbContext = dbContext;
 
             if(_dbContext.Authors.Count() == 0){
-                Author newAt = new Author{ Name = "Walter Isaacson"};
+                Author JK = new Author{ Name = "J. K. Rowling"};
+                _dbContext.Authors.Add(JK);
+                _dbContext.Books.Add(new Book{ Name = "Harry Potter - The Philosopher's Stone", Author = JK });
+                _dbContext.Books.Add(new Book{ Name = "Harry Potter - The Chamber of Secrets", Author = JK });
+                _dbContext.Books.Add(new Book{ Name = "Harry Potter - The Prisoner of Azkaban", Author = JK });
 
-                _dbContext.Authors.Add(new Author{ Name = "Eric Topol"});
-                _dbContext.Authors.Add(new Author{ Name = "Max Tegmark"});
-                _dbContext.Authors.Add(newAt);
-                _dbContext.Books.Add(new Book{ Name = "Steve Jobs", Author = newAt });
+                Author JRR = new Author{ Name = "J. R. R. Tolkien"};
+                _dbContext.Authors.Add(JRR);
+                _dbContext.Books.Add(new Book{ Name = "Lord of the Rings - The Fellowship of the Ring", Author = JRR });
+                _dbContext.Books.Add(new Book{ Name = "Lord of the Rings - The Two Towers", Author = JRR });
+                _dbContext.Books.Add(new Book{ Name = "Lord of the Rings - The Return of the King", Author = JRR });
+                
+                Author rick = new Author{ Name = "Rick Riordan"};
+                _dbContext.Authors.Add(rick);
+                _dbContext.Books.Add(new Book{ Name = "Percy Jackson - The Lightning Thief", Author = rick });
+                _dbContext.Books.Add(new Book{ Name = "Percy Jackson - The Sea of Monsters", Author = rick });
+                _dbContext.Books.Add(new Book{ Name = "Percy Jackson - The Titan's Curse", Author = rick });
+
                 _dbContext.SaveChanges();
             } 
         }
@@ -40,12 +52,18 @@ namespace BookStoreApi.Services
                             .OrderBy(a => a.AuthorName).ToListAsync();
         }
 
-        public async Task<ActionResult<Author>> GetAuthorService(string name){
-            return await _dbContext.Authors.FirstOrDefaultAsync(a => a.Name == name); 
+        public async Task<ActionResult<IEnumerable<Author>>> GetAuthorService(string name){
+            return await _dbContext.Authors
+                                .Where(a => a.Name.Contains(name))
+                                .Include(a => a.Books)
+                                .ToListAsync(); 
         }
 
-        public async Task<ActionResult<Book>> GetBookService(string name){
-            return await _dbContext.Books.FirstOrDefaultAsync(b => b.Name == name);
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetBookService(string name){
+            return await _dbContext.Books
+                                .Where(b => b.Name.Contains(name))
+                                .Select(b => new { Name = b.Name, Author = b.Author.Name })
+                                .ToListAsync();
         }
     }
 
@@ -53,7 +71,7 @@ namespace BookStoreApi.Services
     {
         Task<ActionResult<IEnumerable<dynamic>>> GetAllBooksService();
         Task<ActionResult<IEnumerable<dynamic>>> GetAllAuthorsService();
-        Task<ActionResult<Author>> GetAuthorService(string name);
-        Task<ActionResult<Book>> GetBookService(string name);
+        Task<ActionResult<IEnumerable<Author>>> GetAuthorService(string name);
+        Task<ActionResult<IEnumerable<dynamic>>> GetBookService(string name);
     }
 }

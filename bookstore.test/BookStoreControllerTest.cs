@@ -14,44 +14,39 @@ using Moq;
 
 namespace bookstore.test
 {
+    public class DataBook{
+        public string BookName { get; set;}
+        public string AuthorName { get; set;}
+    }
+
+    public class DataAuthor{
+        public int Id { get; set;}
+        public string AuthorName { get; set;}
+        public List<string> BooksName { get; set;}
+    }
+
     public class BookStoreControllerTest
     {
-        public IEnumerable<Book> GetTestBooks(){
-            var i = 1;
-            var books = A.ListOf<Book>(26);
-            books.ForEach(x => x.BookId = i++);
-            return books.Select(_ => _);
-        }
 
-         private Mock<BookStoreContext> CreateDbContext(){
-            var persons = GetTestBooks().AsQueryable();
-
-            var dbSet = new Mock<DbSet<Book>>();
-            dbSet.As<IQueryable<Book>>().Setup(m => m.Provider).Returns(persons.Provider);
-            dbSet.As<IQueryable<Book>>().Setup(m => m.Expression).Returns(persons.Expression);
-            dbSet.As<IQueryable<Book>>().Setup(m => m.ElementType).Returns(persons.ElementType);
-            dbSet.As<IQueryable<Book>>().Setup(m => m.GetEnumerator()).Returns(persons.GetEnumerator());
-
-            var context = new Mock<BookStoreContext>();
-            context.Setup(c => c.Books).Returns(dbSet.Object);
-            return context;
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetFakeData(){
+            return await Task.FromResult(A.ListOf<DataBook>(20));
         }
 
         [Fact]
-        public void GetAllBooksTest()
-        {
+        public async void GetAllBooksTest(){
             // arrange
-            var context = CreateDbContext();
+            var data = GetFakeData();
+            var service = new Mock<IBookStoreService>();
+            service.Setup(x => x.GetAllBooksService()).Returns(data);
 
-            var service = new BookStoreService(context.Object); 
+            var controller = new BookStoreController(service.Object);
 
              // act
-            var results = service.GetAllBooksService();
-
-            var count = results.Id;
+            var result = await controller.GetAllBooks();
+            Console.WriteLine(result);
 
             // assert
-            Assert.Equal(1, count);
+            Assert.Equal("20", result);
         }
     }
 }

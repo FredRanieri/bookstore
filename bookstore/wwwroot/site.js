@@ -2,11 +2,12 @@ var url = "api/bookstore/";
 
 function booksList(){
     $.get(url + "allBooks", function(data){
-        var books = "";
-        for(var i = 0; i < data.length; i++){
-            console.log(data[i]);
-            books += "<p><b>Book: </b>" + data[i].name + "</br><b>Author:</b> " + data[i].author.name + "</p>";
-        }
+        books = ""
+
+        data.forEach(function(d) {
+            books += "<p><b>Book: </b>" + d.bookName + "</br><b>Author:</b> " + d.authorName + "</p>";
+        });
+
         document.getElementById("booksList_d").innerHTML = books;
         document.getElementById("message_d").innerHTML = "";
     });
@@ -14,25 +15,15 @@ function booksList(){
 
 function authorsList(){
     $.get(url + "allAuthors", function(data){
-        //This code should to be in server side
-        //using LINQ
-        var books = "";
-        for(var i = 0; i < data.length; i++){
-            var tab = "";
-            console.log(data[i]);
-            books += "<p><b>Author:</b> " + data[i].name + "</br><b>Books: </b>";
-            if(data[i].books.length !== 0)
-                books += data[i].books[0].name + "</br>";
-            
-            for(var j = 0; j < 13; j++){
-                tab += "&nbsp;";
-            }
 
-            for(var j = 1; j < data[i].books.length; j++){
-                books += tab + data[i].books[j].name + "</br>";
-            }
+        var books = "";
+        data.forEach(function(d) {
+            books += "<p><b>Author: </b>" + d.authorName + "</br><b>Book:</b> ";
+            d.booksName.forEach(function(b){
+                books += b;
+            })
             books += "</p>";
-        }
+        });
         document.getElementById("booksList_d").innerHTML = books;
         document.getElementById("message_d").innerHTML = "";
     });

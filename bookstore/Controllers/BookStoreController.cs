@@ -16,21 +16,33 @@ namespace BookStore.Controllers
     {
         private readonly IBookStoreService _service;
 
-        public BookStoreController(IBookStoreService context){
-            _service = context;
+        public BookStoreController(IBookStoreService service){
+            _service = service;
         }
 
 
         [HttpGet("allBooks")]
-        public async Task<ActionResult<IEnumerable<Book>>> GetAllBooks(){
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetAllBooks(){
             return await _service.GetAllBooksService();
         }
 
 
         [HttpGet("allAuthors")]
-        public async Task<ActionResult<IEnumerable<Author>>> GetAllAuthors(){
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetAllAuthors(){
             return await _service.GetAllAuthorsService();
         }
+
+        [HttpGet("findAuthor/{name}")]
+        public async Task<ActionResult<Author>> GetAuthor(string name){
+
+            return await _service.GetAuthorService(name);
+        }
+
+        [HttpGet("findBook/{name}")]
+        public async Task<ActionResult<Book>> GetBook(string name){
+            return await _service.GetBookService(name);
+        }
+        
     }
 }
 

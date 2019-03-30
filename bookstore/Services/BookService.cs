@@ -39,8 +39,7 @@ namespace BookStoreApi.Services
             } 
         }
 
-        public IEnumerable<dynamic> GetAllBooksService()
-        {
+        public IEnumerable<dynamic> GetAllBooksService(){
             return  _dbContext.Books
                             .Select(b => new { BookName = b.Name, AuthorName = b.Author.Name})
                             .OrderBy(b => b.BookName).ToList();
@@ -66,15 +65,33 @@ namespace BookStoreApi.Services
                             .ToList();
         }
 
-        public async Task<ActionResult<Boolean>> PostBookService(dynamic info){
-            int id = info.authorId.ToObject<int>();
-            String name =  info.name.ToObject<String>();
+        public void PostBookService(dynamic data){
+            int id = data.authorId.ToObject<int>();
+            String name =  data.name.ToObject<String>();
 
-            Author author = await _dbContext.Authors.FindAsync(id);
+            Author author = _dbContext.Authors.Find(id);
             _dbContext.Books.Add(new Book{ Name = name, Author = author });
-            await _dbContext.SaveChangesAsync();
-            
-            return true;
+            _dbContext.SaveChanges();
+        }
+
+        public void PostAuthorService(dynamic data){
+            String name =  data.name.ToObject<String>();
+            _dbContext.Authors.Add(new Author{ Name = name });
+            _dbContext.SaveChanges();
+        }
+
+
+
+        public void DeleteAuthorService(String name){
+            var author = _dbContext.Authors.Include(a => a.Books).Single(a => a.Name == name);
+            var books = _dbContext.Books.Where(b => b.Author.Name == name);
+
+            foreach(Book book in books){
+                _dbContext.Books.Remove(book);  
+            }
+
+            _dbContext.Authors.Remove(author);
+            _dbContext.SaveChanges();
         }
     }
 
@@ -84,6 +101,8 @@ namespace BookStoreApi.Services
         IEnumerable<dynamic> GetAllAuthorsService();
         IEnumerable<Author> GetAuthorService(string name);
         IEnumerable<dynamic> GetBookService(string name);
-        Task<ActionResult<Boolean>> PostBookService(dynamic infoBook);
+        void PostBookService(dynamic data);
+        void PostAuthorService(dynamic data);
+        void DeleteAuthorService(String name);
     }
 }

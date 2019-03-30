@@ -36,10 +36,39 @@ namespace BookStore.Controllers
         public IEnumerable<dynamic> GetBook(string name) => _service.GetBookService(name);
 
         [HttpPost("newBook")]
-        public async Task<ActionResult<Boolean>> PostBook(dynamic info){
-            await _service.PostBookService(info);
-            return Ok();
+        public IActionResult PostBook(dynamic data){
+            try{
+                _service.PostBookService(data);
+                return Ok();
+            }
+            catch(Exception e){
+                Console.WriteLine(e);
+                return BadRequest();
+            } 
         }
+
+        [HttpPost("newAuthor")]
+        public IActionResult PostAuthor(dynamic data){
+            try{
+                _service.PostAuthorService(data);
+                return Ok();
+            }
+            catch(Exception e){
+                Console.WriteLine(e);
+                return BadRequest();
+            } 
+        }
+
+        [HttpDelete("deleteAuthor/{name}")]
+        public IActionResult DeleteAuthor(String name){
+            try{
+                _service.DeleteAuthorService(name);
+                return NoContent();
+            }catch(Exception e){
+                Console.WriteLine(e);
+                return BadRequest();
+            }
+        } 
     }
 }
 

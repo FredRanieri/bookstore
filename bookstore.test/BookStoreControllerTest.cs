@@ -14,40 +14,43 @@ using Moq;
 
 namespace bookstore.test
 {
-    public class DataBook{
-        public string BookName { get; set;}
-        public string AuthorName { get; set;}
-    }
-
-    public class DataAuthor{
-        public int Id { get; set;}
-        public string AuthorName { get; set;}
-        public List<string> BooksName { get; set;}
-    }
-
     public class BookStoreControllerTest
     {
 
-        public IEnumerable<dynamic> GetFakeBook(int size){
-            return A.ListOf<DataBook>(size);
+        public IEnumerable<Book> GetFakeBook(int size){
+            return A.ListOf<Book>(size);
         }
 
-        public IEnumerable<dynamic> GetFakeAuthor(int size){
-            return A.ListOf<DataAuthor>(size);
+        public IEnumerable<Author> GetFakeAuthor(int size){
+            return A.ListOf<Author>(size);
+        }
+
+        private Mock<BookStoreContext> CreateDbContext(IEnumerable<Author> data){
+            var author = data.AsQueryable();
+
+            var dbSet = new Mock<DbSet<Author>>();
+            dbSet.As<IQueryable<Author>>().Setup(m => m.Provider).Returns(author.Provider);
+            dbSet.As<IQueryable<Author>>().Setup(m => m.Expression).Returns(author.Expression);
+            dbSet.As<IQueryable<Author>>().Setup(m => m.ElementType).Returns(author.ElementType);
+            dbSet.As<IQueryable<Author>>().Setup(m => m.GetEnumerator()).Returns(author.GetEnumerator());
+
+            var context = new Mock<BookStoreContext>();
+            context.Setup(c => c.Authors).Returns(dbSet.Object);
+            return context;
         }
 
         [Fact]
         public void GetAllBooksTest_BookListValue(){
             // arrange
             var data = GetFakeBook(5);
-            String expected = data.First().BookName;
+            String expected = data.First().Name;
             
             var service = new Mock<IBookStoreService>();
             service.Setup(x => x.GetAllBooksService()).Returns(data);
             var controller = new BookStoreController(service.Object);
 
              // act
-            String actual = controller.GetAllBooks().First().BookName;
+            String actual = controller.GetAllBooks().First().Name;
 
             // assert
             Assert.Equal(expected, actual);
@@ -75,14 +78,14 @@ namespace bookstore.test
         public void GetAllAuthorsTest_AuthorListValue(){
             // arrange
             var data = GetFakeAuthor(5);
-            String expected = data.First().AuthorName;
+            String expected = data.First().Name;
             
             var service = new Mock<IBookStoreService>();
             service.Setup(x => x.GetAllAuthorsService()).Returns(data);
             var controller = new BookStoreController(service.Object);
 
              // act
-            String actual = controller.GetAllAuthors().First().AuthorName;
+            String actual = controller.GetAllAuthors().First().Name;
 
             // assert
             Assert.Equal(expected, actual);
@@ -103,6 +106,23 @@ namespace bookstore.test
 
             // assert
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void GetAuthorByNameTest_AuthorNameAndBookList(){
+            var data = GetFakeAuthor(50);
+            var expected = data
+                            .Where(a => a.Name.Contains("a"))
+                            .ToList();
+            
+            var context = CreateDbContext(data);
+            var service = new BookStoreService(context.Object);
+
+            // act
+            var actual = service.GetAuthorService("a");
+
+            // assert
+            Assert.Equal(expected.First(), actual.First());
         }
     }
 }

@@ -8,14 +8,17 @@ This is a small project using new technologies that I am studying as C#, dotnet 
 * dotnet
 * SQLite
 
-## Running application
+## Testing Application
 
-* Command to start migrate `dotnet ef migrations add FirstMigrate`
-* Command to create Database `dotnet ef database update`
-* Command to run application `dotnet run`
+* Command to run test unit `dotnet test bookstore.test`
+
+## Running Application
+
+* Command to start migrate `dotnet ef migrations add FirstMigrate -p bookstore`
+* Command to create Database `dotnet ef database update -p bookstore`
+* Command to run application `dotnet run -p bookstore`
+* Go to `https://localhost:5001/`
 
 ## Todo
 
-* Insert Author and Book function
-* Filter queries using LINQ for better performace
-* Fix delay when starting server
+* Insert search field

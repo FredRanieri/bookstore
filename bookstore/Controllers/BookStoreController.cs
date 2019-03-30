@@ -20,6 +20,8 @@ namespace BookStore.Controllers
             _service = service;
         }
 
+        [HttpGet("start")]
+        public String GetStart() => "Welcome!";
 
         [HttpGet("allBooks")]
         public IEnumerable<dynamic>  GetAllBooks() => _service.GetAllBooksService();

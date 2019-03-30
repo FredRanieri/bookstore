@@ -1,5 +1,11 @@
 var url = "api/bookstore/";
 
+function startServer(){
+    $.get(url + "start", function(data){
+        console.log(data);
+    });
+}
+
 function booksList(){
     $.get(url + "allBooks", function(data){
         books = ""
@@ -15,12 +21,11 @@ function booksList(){
 
 function authorsList(){
     $.get(url + "allAuthors", function(data){
-
         var books = "";
         data.forEach(function(d) {
             books += "<p><b>Author: </b>" + d.authorName + "</br><b>Book:</b> ";
             d.booksName.forEach(function(b){
-                books += b;
+                books += b + "<br>";
             })
             books += "</p>";
         });

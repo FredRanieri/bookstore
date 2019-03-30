@@ -54,16 +54,16 @@ namespace BookStoreApi.Services
 
         public IEnumerable<Author> GetAuthorService(string name){
             return _dbContext.Authors
-                                .Where(a => a.Name.Contains(name))
-                                .Include(a => a.Books)
-                                .ToList(); 
+                            .Where(a => a.Name.Contains(name))
+                            .Include(a => a.Books)
+                            .ToList(); 
         }
 
         public IEnumerable<dynamic> GetBookService(string name){
             return _dbContext.Books
-                                .Where(b => b.Name.Contains(name))
-                                .Select(b => new { Name = b.Name, Author = b.Author.Name })
-                                .ToList();
+                            .Where(b => b.Name.Contains(name))
+                            .Select(b => new { Name = b.Name, Author = b.Author.Name })
+                            .ToList();
         }
 
         public async Task<ActionResult<Boolean>> PostBookService(dynamic info){

@@ -59,6 +59,17 @@ namespace BookStore.Controllers
             } 
         }
 
+        [HttpDelete("deleteBook/{name}")]
+        public IActionResult DeleteBook(String name){
+            try{
+                _service.DeleteBookService(name);
+                return NoContent();
+            }catch(Exception e){
+                Console.WriteLine(e);
+                return BadRequest();
+            }
+        } 
+
         [HttpDelete("deleteAuthor/{name}")]
         public IActionResult DeleteAuthor(String name){
             try{

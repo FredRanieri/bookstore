@@ -80,7 +80,11 @@ namespace BookStoreApi.Services
             _dbContext.SaveChanges();
         }
 
-
+        public void DeleteBookService(String name){
+            var book = _dbContext.Books.Single(b => b.Name == name);
+            _dbContext.Books.Remove(book);
+            _dbContext.SaveChanges();
+        }
 
         public void DeleteAuthorService(String name){
             var author = _dbContext.Authors.Include(a => a.Books).Single(a => a.Name == name);
@@ -89,7 +93,7 @@ namespace BookStoreApi.Services
             foreach(Book book in books){
                 _dbContext.Books.Remove(book);  
             }
-
+            
             _dbContext.Authors.Remove(author);
             _dbContext.SaveChanges();
         }
@@ -104,5 +108,6 @@ namespace BookStoreApi.Services
         void PostBookService(dynamic data);
         void PostAuthorService(dynamic data);
         void DeleteAuthorService(String name);
+        void DeleteBookService(String name);
     }
 }

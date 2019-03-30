@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using BookStore.Controllers;
 using BookStoreApi.Models;
 using BookStoreApi.Services;
@@ -108,7 +109,7 @@ namespace bookstore.test
         }
 
         [Fact]
-        public void GetAuthorByNameTest_AuthorNameAndBookList(){
+        public void GetAuthorByNameTest_AuthorFirstInQuery(){
             var data = GetFakeAuthor(50);
             var expected = data
                             .Where(a => a.Name.Contains("a"))
@@ -122,6 +123,24 @@ namespace bookstore.test
 
             // assert
             Assert.Equal(expected.First(), actual.First());
+        }
+
+        [Fact]
+        public void PostAuthorTest_InsertNewAuthor(){
+            var data = GetFakeAuthor(10);
+            var expected = "New Actor";
+            dynamic jsonObject = new JObject();
+            jsonObject.name = expected;
+
+            var context = CreateDbContext(data);
+            var service = new BookStoreService(context.Object);
+        
+            // act
+            service.PostAuthorService(jsonObject);
+            var actual = service.GetAuthorService(expected).Count();
+
+            // assert
+            Assert.Equal(1, actual);
         }
     }
 }
